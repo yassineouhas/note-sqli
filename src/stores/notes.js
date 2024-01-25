@@ -42,7 +42,7 @@ export const useNotesStore = defineStore('notes', {
       // Update the notes array after successful edit
    
       const id= updatedNote.id;
-      await axios.put(`http://localhost:3000/notes/${id}`, updatedNote);
+          await axios.put(`http://localhost:3000/notes/${id}`, updatedNote);
         const editedNoteIndex = this.notes.findIndex((note) => note.id === id);
         if (editedNoteIndex !== -1) {
           // Replace the old note with the edited note
@@ -57,6 +57,15 @@ export const useNotesStore = defineStore('notes', {
       this.editNote = null;
     },
 
+    async submitNote(newNote) {
+      try {
+        await axios.post('http://localhost:3000/notes', newNote)
+        this.notes.push({...newNote});
+        this.fetchNotes();
+      } catch (error) {
+        console.error('ERROR Submitting Note:', error)
+      }
+    }
     
     
   }

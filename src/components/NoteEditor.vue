@@ -21,19 +21,10 @@ function submit() {
   if (isEditing.value) {
     store.editNoteInList(note.value);
   } else {
-    submitNote(note.value);
+    store.submitNote(note.value);
   }
 }
 
-async function submitNote(newNote) {
-  try {
-    await axios.post('http://localhost:3000/notes', newNote)
-    resetForm();
-    store.fetchNotes()
-  } catch (error) {
-    console.error('ERROR Submitting Note:', error)
-  }
-}
 
 
 function resetForm() {
